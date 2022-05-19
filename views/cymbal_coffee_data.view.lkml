@@ -394,6 +394,23 @@ view: cymbal_coffee_data {
     sql: ${TABLE}.Transaction_Date ;;
   }
 
+  filter: date_filter {
+    description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date
+
+  }
+
+
+  dimension_group: filter_end_date {
+
+    type: time
+    timeframes: [raw]
+    sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0)::timestamp END;;
+
+  }
+
+
+
   measure: count {
     type: count
     drill_fields: [store__name]
