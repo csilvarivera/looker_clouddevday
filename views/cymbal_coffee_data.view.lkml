@@ -401,8 +401,7 @@ view: cymbal_coffee_data {
   }
 
 
-  dimension_group: filter_end_date {
-
+  dimension_group: last_date{
     type: time
     timeframes: [raw]
     sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0)::timestamp END;;
